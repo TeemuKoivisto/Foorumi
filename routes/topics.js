@@ -9,32 +9,63 @@ var Models = require('../models');
 // GET /topics
 router.get('/', function(req, res, next) {
     // Hae kaikki aihealueet tässä (Vinkki: findAll)
-    res.send(200);
+    Models.Topic.findAll().then(function(topics){
+        res.send(topics);
+    });
 });
 
 // GET /topics/:id
 router.get('/:id', function(req, res, next) {
   // Hae aihealue tällä id:llä tässä (Vinkki: findOne)
   var topicId = req.params.id;
-  res.send(200);
+    Models.Topic.findOne({ where: { id: topicId }, 
+        include: { 
+            model: Models.Message,
+            include: { 
+                model: Models.User
+            }
+        }
+    }).then(function(topic) {
+        topic.Messages.forEach(function(message) {
+            if (message.User) {
+                message.User.password = undefined;
+            }
+        });
+        res.send(topic);
+    });
 });
 
 // POST /topics
 router.post('/', function(req, res, next) {
   // Lisää tämä aihealue
   var topicToAdd = req.body;
-  // Palauta vastauksena lisätty aihealue
-  res.send(200);
+    
+    if (topicToAdd.name !== "" && topicToAdd.description !== "") {
+        Models.Topic.create({
+            name: topicToAdd.name,
+            description: topicToAdd.description
+        }).then(function (topic) {
+            res.send(topic);
+        });
+    }
+    else {
+        res.send(505);
+    }
 });
 
 // POST /topics/:id/message
 router.post('/:id/message', function(req, res, next) {
   // Lisää tällä id:llä varustettuun aihealueeseen...
   var topicId = req.params.id;
-  // ...tämä viesti (Vinkki: lisää ensin messageToAdd-objektiin kenttä TopicId, jonka arvo on topicId-muuttujan arvo ja käytä sen jälkeen create-funktiota)
-  var messageToAdd = req.body;
-  // Palauta vastauksena lisätty viesti
-  res.send(200);
+    // ...tämä viesti (Vinkki: lisää ensin messageToAdd-objektiin kenttä TopicId, jonka arvo on topicId-muuttujan arvo ja käytä sen jälkeen create-funktiota)
+    var messageToAdd = req.body;
+    messageToAdd.TopicId = topicId;
+    messageToAdd.UserId = req.session.userId;
+
+    // Palauta vastauksena lisätty viesti
+    Models.Message.create(messageToAdd).then(function(message) {
+        res.send(message);
+    });
 });
 
 module.exports = router;
