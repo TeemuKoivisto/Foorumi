@@ -1,12 +1,16 @@
 FoorumApp.service('Api', function($http){
   // Aihealueiden Api-funktiot
   this.getTopics = function(){
+//      console.log("hello gettopics");
+    return $http.get('/topics');
     // Hae kaikki aihealueet toteuttamasi Api:n polusta /topics
   }
   this.getTopic = function(id){
+    return $http.get('/topics/' + id);
     // Hae annetulla id:llä varastettu aihealue toteuttamasi Api:n polusta /topics/:id
   }
   this.addTopic = function(topic){
+    $http.post('/topics', topic);
     // Lisää annettu aihealue lähettämällä POST-pyyntö toteuttamasi Api:n polkuun /topics
   }
 

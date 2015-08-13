@@ -45,6 +45,7 @@ router.post('/', function(req, res, next) {
             name: topicToAdd.name,
             description: topicToAdd.description
         }).then(function (topic) {
+            console.log("succesfull post is successfull");
             res.send(topic);
         });
     }
