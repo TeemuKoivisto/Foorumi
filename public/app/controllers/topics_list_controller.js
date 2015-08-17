@@ -1,25 +1,18 @@
 FoorumApp.controller('TopicsListController', function ($scope, $http, $location, Api) {
-//    $scope.topics = Api.getTopics();
-
     Api.getTopics().success(function (topics) {
         $scope.topics = topics;
+        $scope.fivetopics = $scope.topics.splice(-5, 5);
     })
-
-//    console.log("topics on " + $scope.topics);
-
+    
     $scope.addTopic = function () {
-//        console.log("hei");
-        Api.addTopic({
-            name: $scope.newTopic.name,
-            description: $scope.newTopic.description
-        }).success(function (topic) {
-            console.log($location.path() + " ja topic " + topic);
-        });
-    }
-
-    $scope.postaa = function () {
-        $http.post('/topics', $scope.newTopic).success(function (response) {
-            console.log("postasin " + JSON.stringify(response));
-        });
+        $http.post('/topics', $scope.newTopic).success(function (topic) {
+//            console.log("postasin " + JSON.stringify($location.path()));
+//            $scope.kives = JSON.stringify(topic);
+            $location.path("topics/" + topic.id);
+        })
+//        Api.addTopic($scope.newTopic).success(function (topic) {
+//            $scope.kives = JSON.stringify(topic);
+//            console.log("hei homo");
+//        });
     }
 });

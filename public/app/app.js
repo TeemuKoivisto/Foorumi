@@ -22,6 +22,10 @@ FoorumApp.config(function($routeProvider){
       controller: 'UsersController',
       templateUrl: 'app/views/users/register.html'
     })
+    .when('/testi', {
+      controller: 'TestiController',
+      templateUrl: 'app/views/testi/index.html'
+    })
     .otherwise({
       redirectTo: '/'
     });

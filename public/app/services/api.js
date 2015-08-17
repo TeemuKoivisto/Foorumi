@@ -16,6 +16,7 @@ FoorumApp.service('Api', function($http){
 
   // Viestien Api-funktiot
   this.getMessage = function(id){
+      return $http.get('/messages/' + id, id);
     // Hae annetulla id:llä varustettu viesti toteuttamasi Api:n polusta /messages/:id
   }
   this.addMessage = function(message, topicId){

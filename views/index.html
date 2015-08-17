@@ -17,7 +17,8 @@
     <![endif]-->
 
     <!-- Angularin lähdekoodit -->
-    <script src="bower_components/angular/angular.min.js"></script>
+    <!--<script src="bower_components/angular/angular.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
 
     <!-- Oman sovelluksen lähdekoodit -->
@@ -27,6 +28,7 @@
     <script src="app/controllers/topics_list_controller.js"></script>
     <script src="app/controllers/show_topic_controller.js"></script>
     <script src="app/controllers/show_message_controller.js"></script>
+    <script src="app/controllers/testi_controller.js"></script>
   </head>
   <body ng-app="FoorumApp">
     <nav class="navbar navbar-default">
@@ -48,6 +50,7 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
+            <li><a ng-href="#/testi">Testi</a></li>
             <li ng-if="userLoggedIn"><a ng-click="logOut()" style="cursor: pointer">Kirjaudu ulos</a></li>
             <li ng-if="!userLoggedIn"><a href="#/login">Kirjaudu sisään</a></li>
             <li ng-if="!userLoggedIn"><a href="#/register">Rekisteröidy</a></li>

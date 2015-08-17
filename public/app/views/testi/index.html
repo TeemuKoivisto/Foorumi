@@ -1,0 +1,27 @@
+<table>
+    <thead>
+    <tr>
+        <td>topics</td>
+        <td style="padding-left: 5px;">messages</td>
+        <td style="padding-left: 5px;">replies</td>
+    </tr>
+    </thead>
+    <tr ng-repeat="topic in topics">
+        <td>{{topic}}</td>
+        <td>{{messages[$index]}}</td>
+        <td>{{replies[$index]}}</td>
+    </tr>
+</table>
+
+<!--<form>
+  <div class="form-group">
+    <label>Nimi</label>
+    <input type="text" class="form-control" ng-model="newTopic.name">
+  </div>
+
+  <div class="form-group">
+    <label>Kuvaus</label>
+    <textarea class="form-control" ng-model="newTopic.description"></textarea>
+  </div>
+  <button class="btn btn-success" ng-click="addTopic">Lisää viesti</button>
+</form>-->
