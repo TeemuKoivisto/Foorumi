@@ -10,4 +10,8 @@ FoorumApp.controller('TestiController', function($scope, $http, $routeParams, Ap
     $http.get('/messages/reply').success(function(reply) {
         $scope.replies = reply.splice(-10, 10);
     });
+    
+    $http.get('/users').success(function(users) {
+        $scope.users = users.splice(-10, 10);
+    });
 });

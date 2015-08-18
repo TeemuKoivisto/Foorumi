@@ -29,25 +29,22 @@ router.get('/:id', function(req, res, next) {
             }
         }
     }).then(function(topic) {
-        topic.Messages.forEach(function(message) {
-            if (message.User) {
-                message.User.password = undefined;
-            }
-        });
+//        topic.Messages.forEach(function(message) {
+//            if (message.User) {
+//                message.User.password = undefined;
+//            }
+//        });
         res.send(topic);
     });
 });
 
 // POST /topics
-router.post('/', function(req, res, next) {
+router.post('/', authentication, function(req, res, next) {
   // Lisää tämä aihealue
   var topicToAdd = req.body;
-    
+    topicToAdd.UserId = req.session.userId;
     if (topicToAdd.name !== "" && topicToAdd.description !== "") {
-        Models.Topic.create({
-            name: topicToAdd.name,
-            description: topicToAdd.description
-        }).then(function (topic) {
+        Models.Topic.create(topicToAdd).then(function (topic) {
             console.log("succesfull post is successfull " + JSON.stringify(topic));
             res.send(topic);
         });
@@ -58,12 +55,13 @@ router.post('/', function(req, res, next) {
 });
 
 // POST /topics/:id/message
-router.post('/:id/message', function(req, res, next) {
+router.post('/:id/message', authentication, function(req, res, next) {
   // Lisää tällä id:llä varustettuun aihealueeseen...
 //  console.log("req on " + JSON.stringify(req));
   var topicId = req.params.id;
     // ...tämä viesti (Vinkki: lisää ensin messageToAdd-objektiin kenttä TopicId, jonka arvo on topicId-muuttujan arvo ja käytä sen jälkeen create-funktiota)
     var messageToAdd = req.body;
+    messageToAdd.UserId = req.session.userId;
 //    messageToAdd.TopicId = topicId;
 //    messageToAdd.UserId = req.session.userId;
 

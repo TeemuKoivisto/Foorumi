@@ -4,12 +4,14 @@
         <td>topics</td>
         <td style="padding-left: 5px;">messages</td>
         <td style="padding-left: 5px;">replies</td>
+        <td style="padding-left: 5px;">users</td>
     </tr>
     </thead>
     <tr ng-repeat="topic in topics">
         <td>{{topic}}</td>
         <td>{{messages[$index]}}</td>
         <td>{{replies[$index]}}</td>
+        <td>{{users[$index]}}</td>
     </tr>
 </table>
 

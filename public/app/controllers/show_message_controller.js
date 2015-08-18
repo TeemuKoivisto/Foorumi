@@ -10,10 +10,10 @@ FoorumApp.controller('ShowMessageController', function($scope, $http, $routePara
 //    });
     
     $scope.addReply = function() {
-//        console.log("addreply" + $scope.newReply);
         $scope.newReply.MessageId = $routeParams.id;
-        $http.post('/messages/:id/reply', $scope.newReply).success(function(reply){
+        Api.addReply($scope.newReply).success(function(reply){
             console.log("tuli takas reply " + JSON.stringify(reply));
+            $scope.message.Replies.push(reply);
         })
     }
 });

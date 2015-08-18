@@ -27,7 +27,10 @@ router.get('/:id', function (req, res, next) {
             id: messageId
         },
         include: {
-            model: Models.Reply
+            model: Models.Reply,
+            include: {
+                model: Models.User
+            }
         }
     }).then(function (message) {
         res.send(message);
@@ -35,7 +38,7 @@ router.get('/:id', function (req, res, next) {
 });
 
 // POST /messages/:id/reply
-router.post('/:id/reply', function (req, res, next) {
+router.post('/:id/reply', authentication, function (req, res, next) {
     console.log("hei vain täältä " + JSON.stringify(req.body));
     // ...tämä vastaus (Vinkki: lisää ensin replyToAdd-objektiin kenttä MessageId, jonka arvo on messageId-muuttujan arvo ja käytä sen jälkeen create-funktiota)
     var replyToAdd = req.body;

@@ -6,7 +6,11 @@
   {{topic.description}}
 </p>
 
-<h2>{{messages.length}} viesti</h2>
+<h2>
+    <span ng-pluralize count="messages.length" when="{'0': 'Ei yhtään viestiä',
+        '1': 'Yksi viesti', 'other': '{} viestiä'}">
+    </span>
+</h2>
 
 <ul class="media-list">
   <li ng-repeat="message in fivelast" class="media">
@@ -20,7 +24,7 @@
       </p>
 
       <p class="text-muted">
-        Käyttäjätunnus tähän, 1.1.2015 12:00
+        Käyttäjätunnus tähän {{message.User.username}}, {{message.createdAt | date:"dd.MM.yyyy HH:mm"}}
       </p>
     </div>
   </li>

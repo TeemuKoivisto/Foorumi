@@ -24,7 +24,14 @@ FoorumApp.config(function($routeProvider){
     })
     .when('/testi', {
       controller: 'TestiController',
-      templateUrl: 'app/views/testi/index.html'
+      templateUrl: 'app/views/testi/index.html',
+      resolve: {
+        userLoggedIn: function($rootScope, Api){
+          return Api.getUserLoggedIn().success(function(user){
+            $rootScope.userLoggedIn = user.username ? user : null;
+          });
+        }
+      }
     })
     .otherwise({
       redirectTo: '/'
